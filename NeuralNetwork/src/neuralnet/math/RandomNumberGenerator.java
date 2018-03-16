@@ -5,5 +5,4 @@ package neuralnet.math;
  * @author Davin Holmberg
  */
 public class RandomNumberGenerator {
-
 }

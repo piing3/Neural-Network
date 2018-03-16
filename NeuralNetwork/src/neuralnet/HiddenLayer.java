@@ -8,7 +8,7 @@ import neuralnet.math.IActivationFunction;
  */
 public class HiddenLayer extends NeuralLayer{
 
-    public HiddenLayer(int numberOfInputs, int numberOfNeurons, IActivationFunction iaf) {
+    public HiddenLayer(int numberOfNeurons, IActivationFunction iaf, int numberOfInputs) {
     }
 
 }
