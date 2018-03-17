@@ -16,8 +16,23 @@ public abstract class NeuralLayer {
     protected ArrayList<Double> inputs;
     protected ArrayList<Double> outputs;
     protected int numberOfInputs;
+
+    public NeuralLayer(int numberOfInputs) {
+        this.numberOfInputs = numberOfInputs; 
+        this.inputs = new ArrayList<>(numberOfInputs);
+        this.outputs = new ArrayList<>(numberOfInputs);
+    }
+
+    public NeuralLayer(int numberOfNeurons, int numberOfInputs, IActivationFunction iaf) {
+        this(numberOfInputs);    
+        this.numberOfNeuronsInLayer = numberOfNeurons;
+        this.neurons = new ArrayList<>(numberOfNeuronsInLayer);
+        this.activationFnc = iaf;
+        init();
+    }
+
     
-    protected void init() {
+    protected void init() {    
         for (int i = 0; i < numberOfNeuronsInLayer; i++) {
             try {
                 neurons.get(i).setActivationFunction(activationFnc);
@@ -49,6 +64,10 @@ public abstract class NeuralLayer {
         this.nextLayer = nextLayer;
     }
 
+    public void setPreviousLayer(NeuralLayer previousLayer) {
+        this.previousLayer = previousLayer;
+    }
+    
     public NeuralLayer getPreviousLayer() {
         return previousLayer;
     }

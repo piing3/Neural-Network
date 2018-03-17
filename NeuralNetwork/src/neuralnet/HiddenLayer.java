@@ -9,6 +9,7 @@ import neuralnet.math.IActivationFunction;
 public class HiddenLayer extends NeuralLayer{
 
     public HiddenLayer(int numberOfNeurons, IActivationFunction iaf, int numberOfInputs) {
+        super(numberOfNeurons, numberOfInputs, iaf);
     }
 
 }

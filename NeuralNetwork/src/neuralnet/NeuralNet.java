@@ -18,9 +18,7 @@ public class NeuralNet {
     private ArrayList<Double> inputs;
     private ArrayList<Double> outputs;
  
-    public NeuralNet(int numberOfInputs,int numberOfOutputs,
-            int[] numberOfHiddenNeurons, IActivationFunction[] hiddenAcFnc, 
-            IActivationFunction outputAcFnc){
+    public NeuralNet(int numberOfInputs,int numberOfOutputs, int[] numberOfHiddenNeurons, IActivationFunction[] hiddenAcFnc, IActivationFunction outputAcFnc){
         
         this.numberOfInputs = numberOfInputs;
         this.numberOfHiddenLayers = numberOfHiddenNeurons.length;
@@ -29,23 +27,28 @@ public class NeuralNet {
         this.inputs = new ArrayList<>(numberOfInputs);
         this.inputLayer = new InputLayer(numberOfInputs);
         
-        this.hiddenLayers = new ArrayList<>(0);
-        this.hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[0], 
-                hiddenAcFnc[0], inputLayer.getNumberOfNeuronsInLayer()));       
-        for (int i = 1; i < numberOfHiddenLayers-1; i++) {
-            this.hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], 
-                hiddenAcFnc[i], inputLayer.getNumberOfNeuronsInLayer()));
-            hiddenLayers.get(i-1).setNextLayer(hiddenLayers.get(i));
+        hiddenLayers = new ArrayList<>();
+        for (int i = 0; i < numberOfHiddenLayers; i++) {
+            if (i == 0){
+                hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], hiddenAcFnc[i], inputLayer.getNumberOfNeuronsInLayer()));
+                hiddenLayers.get(i).setPreviousLayer(inputLayer);
+            }
+            else {
+                hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], hiddenAcFnc[i], inputLayer.getNumberOfNeuronsInLayer()));
+                hiddenLayers.get(i-1).setNextLayer(hiddenLayers.get(i));
+                hiddenLayers.get(i).setPreviousLayer(hiddenLayers.get(i-1)); 
+            }
         }
         
         if(this.numberOfHiddenLayers > 0){
-            outputLayer = new OutputLayer(numberOfOutputs, outputAcFnc, 
-                    hiddenLayers.get(numberOfHiddenLayers-1).getNumberOfNeuronsInLayer());
+            outputLayer = new OutputLayer(numberOfOutputs, outputAcFnc, hiddenLayers.get(numberOfHiddenLayers-1).getNumberOfNeuronsInLayer());
             hiddenLayers.get(numberOfHiddenLayers-1).setNextLayer(outputLayer);
+            outputLayer.setPreviousLayer(hiddenLayers.get(numberOfHiddenLayers-1));
             inputLayer.setNextLayer(hiddenLayers.get(0));
         }
         else{
             outputLayer = new OutputLayer(numberOfInputs, outputAcFnc, numberOfOutputs);
+            outputLayer.setPreviousLayer(inputLayer);
             inputLayer.setNextLayer(outputLayer);
         }
     }
@@ -66,12 +69,12 @@ public class NeuralNet {
     }
 
     public void print() {
-        System.out.println("Neural Network:" + this.toString());
-        System.out.println("    Inputs:" + numberOfInputs);
-        System.out.println("    Outputs:" + numberOfOutputs);
-        System.out.println("    Hidden Layers:" + numberOfHiddenLayers);
+        System.out.println("Neural Network: " + this.toString());
+        System.out.println("    Inputs: " + numberOfInputs);
+        System.out.println("    Outputs: " + numberOfOutputs);
+        System.out.println("    Hidden Layers: " + numberOfHiddenLayers);
         for (int i = 0; i < numberOfHiddenLayers; i++) {
-            System.out.println("        Hidden Layer" + i + ": "
+            System.out.println("        Hidden Layer " + i + ": "
                     + hiddenLayers.get(i).getNumberOfNeuronsInLayer() 
                     + " Neurons");
         }

@@ -9,5 +9,6 @@ import neuralnet.math.IActivationFunction;
 public class OutputLayer extends NeuralLayer{
 
     public OutputLayer(int numberOfNeurons, IActivationFunction iaf, int numberOfInputs) {
+        super(numberOfNeurons, numberOfInputs, iaf);
     }
 }
