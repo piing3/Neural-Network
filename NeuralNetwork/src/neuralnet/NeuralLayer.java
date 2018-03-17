@@ -9,36 +9,56 @@ import neuralnet.math.IActivationFunction;
  */
 public abstract class NeuralLayer {
     protected int numberOfNeuronsInLayer;
-    private ArrayList<Neuron> neuron;
+    private ArrayList<Neuron> neurons;
     protected IActivationFunction activationFnc;
     protected NeuralLayer previousLayer;
     protected NeuralLayer nextLayer;
-    protected ArrayList<Double> input;
-    protected ArrayList<Double> output;
+    protected ArrayList<Double> inputs;
+    protected ArrayList<Double> outputs;
     protected int numberOfInputs;
     
     protected void init() {
         for (int i = 0; i < numberOfNeuronsInLayer; i++) {
             try {
-                neuron.get(i).setActivationFunction(activationFnc);
-                neuron.get(i).init();
+                neurons.get(i).setActivationFunction(activationFnc);
+                neurons.get(i).init();
             } catch (IndexOutOfBoundsException iobe) {
-                neuron.add(new Neuron(numberOfInputs, activationFnc));
-                neuron.get(i).init();
+                neurons.add(new Neuron(numberOfInputs, activationFnc));
+                neurons.get(i).init();
             }
         }
     }
     
     protected void calc(){
         for (int i = 0; i < numberOfNeuronsInLayer; i++) {
-            neuron.get(i).setInputs(input);
-            neuron.get(i).calc();
+            neurons.get(i).setInputs(inputs);
+            neurons.get(i).calc();
             try {
-                output.set(i, neuron.get(i).getOutput());
+                outputs.set(i, neurons.get(i).getOutput());
             } catch (IndexOutOfBoundsException iobe) {
-                output.add(neuron.get(i).getOutput());
+                outputs.add(neurons.get(i).getOutput());
             }
         }
     }
-            
+
+    public int getNumberOfNeuronsInLayer() {
+        return numberOfNeuronsInLayer;
+    }
+
+    public void setNextLayer(NeuralLayer nextLayer) {
+        this.nextLayer = nextLayer;
+    }
+
+    public NeuralLayer getPreviousLayer() {
+        return previousLayer;
+    }
+    
+    public void setInputs(ArrayList<Double> inputs) {
+        this.inputs = inputs;
+    }
+
+    public ArrayList<Double> getOutputs() {
+        return outputs;
+    }
+    
 }

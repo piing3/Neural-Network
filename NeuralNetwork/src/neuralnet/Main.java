@@ -1,5 +1,6 @@
 package neuralnet;
 
+import java.util.ArrayList;
 import neuralnet.math.IActivationFunction;
 import neuralnet.math.Linear;
 import neuralnet.math.RandomNumberGenerator;
@@ -15,7 +16,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        RandomNumberGenerator.seed = 0;
+        RandomNumberGenerator.setSeed(0);
         
         int numberOfInputs = 2;
         int numberOfOutputs = 1;
@@ -24,25 +25,20 @@ public class Main {
         Linear outputAcFcn = new Linear(1.0);
         System.out.println("Creating Neural Network...");
         NeuralNet nn = new NeuralNet(numberOfInputs,numberOfOutputs,
-                numberOfHiddenNeurons,hiddenAcFnc,outputAcFnc);
+                numberOfHiddenNeurons,hiddenAcFnc,outputAcFcn);
         System.out.println("Neural Network created!");
         nn.print();
         
-        double [] neuralInput = { 1.5 , 0.5 };
-        double [] neuralOutput;
+        ArrayList<Double> neuralInput = new ArrayList<>(2);
+        neuralInput.set(0, 1.5);
+        neuralInput.set(1, 0.5);
+        ArrayList<Double> neuralOutput = new ArrayList<>();
         System.out.println("Feeding the values [" 
-                + String.valueOf(neuralInput[0]) + " ; " 
-                + String.valueOf(neuralInput[1]) 
+                + String.valueOf(neuralInput.get(0)) + " ; " 
+                + String.valueOf(neuralInput.get(1)) 
                 + "] to the neural network");
         nn.setInputs(neuralInput);
         nn.calc();
         neuralOutput = nn.getOutputs();
-
-        neuralInput[0] = 1.0;
-        neuralInput[1] = 2.1;
-        nn.setInputs(neuralInput);
-        nn.calc();
-        neuralOutput = nn.getOutputs();
     }
-
 }

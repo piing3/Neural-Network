@@ -6,4 +6,6 @@ package neuralnet.math;
  */
 public interface IActivationFunction {
 
+    public double calc(double outputBeforeActivation);
+
 }

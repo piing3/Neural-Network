@@ -9,8 +9,8 @@ import neuralnet.math.RandomNumberGenerator;
  * @author Davin Holmberg
  */
 public class Neuron {
-    protected ArrayList<Double> weight;
-    private ArrayList<Double> input;
+    protected ArrayList<Double> weights;
+    private ArrayList<Double> inputs;
     private double output;
     private double outputBeforeActivation;
     private int numberOfInputs = 0;
@@ -19,8 +19,8 @@ public class Neuron {
 
     public Neuron(int numberOfInputs, IActivationFunction iaf) {
         this.numberOfInputs = numberOfInputs;
-        this.weight = new ArrayList<>(numberOfInputs+1);
-        this.input = new ArrayList<>(numberOfInputs);
+        this.weights = new ArrayList<>(numberOfInputs+1);
+        this.inputs = new ArrayList<>(numberOfInputs);
         this.activationFunction = iaf;        
     }
     
@@ -28,9 +28,9 @@ public class Neuron {
         for (int i = 0; i <= numberOfInputs; i++) {
             double newWeight = RandomNumberGenerator.generateNext();
             try {
-                weight.set(i, newWeight);
+                weights.set(i, newWeight);
             } catch (IndexOutOfBoundsException iobe) {
-                weight.add(newWeight);
+                weights.add(newWeight);
             }
         }
     }
@@ -38,12 +38,25 @@ public class Neuron {
     public void calc() {
         outputBeforeActivation = 0.0;
         if (numberOfInputs > 0) {
-            if (input != null && weight != null) {
+            if (inputs != null && weights != null) {
                 for (int i = 0; i <= numberOfInputs; i++) {
-                    outputBeforeActivation += (i == numberOfInputs? bias : input.get(i))*weight.get(i);
+                    outputBeforeActivation += (i == numberOfInputs? bias : inputs.get(i))*weights.get(i);
                 }
             }    
         }
         output = activationFunction.calc(outputBeforeActivation);
     }    
+
+    public void setActivationFunction(IActivationFunction activationFnc) {
+        this.activationFunction = activationFnc;
+    }
+
+    public void setInputs(ArrayList<Double> inputs) {
+        this.inputs = inputs;
+    }
+
+    public double getOutput() {
+        return output;
+    }
+
 }
