@@ -77,6 +77,10 @@ public abstract class NeuralLayer {
     public void setInputs(ArrayList<Double> inputs) {
         this.inputs = inputs;
     }
+    
+    public int getNumberOfInputs() {
+        return numberOfInputs;
+    }
 
     public ArrayList<Double> getOutputs() {
         return outputs;

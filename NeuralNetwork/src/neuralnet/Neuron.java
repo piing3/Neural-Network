@@ -14,7 +14,7 @@ public class Neuron {
     private double output;
     private double outputBeforeActivation;
     private int numberOfInputs = 0;
-    protected double bias = 1.0;
+    protected double bias = 0.0;
     private IActivationFunction activationFunction;
 
     public Neuron(int numberOfInputs, IActivationFunction iaf) {
@@ -26,6 +26,7 @@ public class Neuron {
     
     public void init() {
         for (int i = 0; i <= numberOfInputs; i++) {
+//            double newWeight = RandomNumberGenerator.generateNext();
             double newWeight = 1;
             try {
                 weights.set(i, newWeight);
@@ -58,5 +59,4 @@ public class Neuron {
     public double getOutput() {
         return output;
     }
-
 }

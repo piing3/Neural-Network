@@ -30,7 +30,7 @@ public class NeuralNet {
         hiddenLayers = new ArrayList<>();
         for (int i = 0; i < numberOfHiddenLayers; i++) {
             if (i == 0){
-                hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], hiddenAcFnc[i], inputLayer.getNumberOfNeuronsInLayer()));
+                hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], hiddenAcFnc[i], inputLayer.getNumberOfInputs()));
                 hiddenLayers.get(i).setPreviousLayer(inputLayer);
             }
             else {

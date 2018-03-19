@@ -22,6 +22,4 @@ public class InputLayer extends NeuralLayer{
             }
         }
     }
-
-    
 }
