@@ -12,4 +12,16 @@ public class InputLayer extends NeuralLayer{
         super(numberOfInputs);
     }
 
+    @Override
+    protected void calc() {
+    for (int i = 0; i < numberOfInputs; i++) {
+            try {
+                outputs.set(i, inputs.get(i));
+            } catch (IndexOutOfBoundsException iobe) {
+                outputs.add(inputs.get(i));
+            }
+        }
+    }
+
+    
 }

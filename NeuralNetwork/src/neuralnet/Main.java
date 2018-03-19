@@ -19,12 +19,12 @@ public class Main {
     public static void main(String[] args) {
         RandomNumberGenerator.setSeed(1);
         
-        int numberOfInputs = 4;
-        double[] inputs = {2.0, 1.5, 1.0, 0.5};
+        int numberOfInputs = 2;
+        double[] inputs = {1.0, 2.0};
         int numberOfOutputs = 1;
-        int[] numberOfHiddenNeurons = {3, 2};
+        int[] numberOfHiddenNeurons = {3};
         
-        IActivationFunction[] hiddenAcFnc = { new Step(1.0), new Sigmoid(1.0)};
+        IActivationFunction[] hiddenAcFnc = { new Sigmoid(1.0)};
         Linear outputAcFcn = new Linear(1.0);
 
         System.out.println("Creating Neural Network...");
@@ -38,7 +38,10 @@ public class Main {
             System.out.print(inputs[i] + " , ");
             neuralInput.add(inputs[i]);
         }
+        
         System.out.println(inputs[inputs.length-1] + "] to the neural network"); 
+        neuralInput.add(inputs[inputs.length-1]);
+        
         nn.setInputs(neuralInput);
         nn.print();
         System.out.println("Successful feeding!");

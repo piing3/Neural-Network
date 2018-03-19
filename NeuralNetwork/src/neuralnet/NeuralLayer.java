@@ -24,8 +24,10 @@ public abstract class NeuralLayer {
     }
 
     public NeuralLayer(int numberOfNeurons, int numberOfInputs, IActivationFunction iaf) {
-        this(numberOfInputs);    
+        this.numberOfInputs = numberOfInputs; 
         this.numberOfNeuronsInLayer = numberOfNeurons;
+        this.inputs = new ArrayList<>(numberOfInputs);
+        this.outputs = new ArrayList<>(numberOfNeurons);
         this.neurons = new ArrayList<>(numberOfNeuronsInLayer);
         this.activationFnc = iaf;
         init();

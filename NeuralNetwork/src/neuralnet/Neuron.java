@@ -26,7 +26,7 @@ public class Neuron {
     
     public void init() {
         for (int i = 0; i <= numberOfInputs; i++) {
-            double newWeight = RandomNumberGenerator.generateNext();
+            double newWeight = 1;
             try {
                 weights.set(i, newWeight);
             } catch (IndexOutOfBoundsException iobe) {
