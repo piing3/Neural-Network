@@ -19,7 +19,7 @@ public class Neuron {
 
     public Neuron(int numberOfInputs, IActivationFunction iaf) {
         this.numberOfInputs = numberOfInputs;
-        this.weights = new ArrayList<>(numberOfInputs+1);
+        this.weights = new ArrayList<>(numberOfInputs+1); //+1 for bias
         this.inputs = new ArrayList<>(numberOfInputs);
         this.activationFunction = iaf;        
     }
@@ -41,7 +41,13 @@ public class Neuron {
         if (numberOfInputs > 0) {
             if (inputs != null && weights != null) {
                 for (int i = 0; i <= numberOfInputs; i++) {
-                    outputBeforeActivation += (i == numberOfInputs? bias : inputs.get(i))*weights.get(i);
+                    if (i != numberOfInputs && i != inputs.size()) {
+                        outputBeforeActivation += inputs.get(i)*weights.get(i);
+                    }
+                    else{
+                        outputBeforeActivation += bias*weights.get(i);
+                        break;
+                    }
                 }
             }    
         }

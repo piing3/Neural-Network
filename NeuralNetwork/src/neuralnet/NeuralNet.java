@@ -34,7 +34,7 @@ public class NeuralNet {
                 hiddenLayers.get(i).setPreviousLayer(inputLayer);
             }
             else {
-                hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], hiddenAcFnc[i], inputLayer.getNumberOfNeuronsInLayer()));
+                hiddenLayers.add(new HiddenLayer(numberOfHiddenNeurons[i], hiddenAcFnc[i], hiddenLayers.get(i-1).getNumberOfNeuronsInLayer()));
                 hiddenLayers.get(i-1).setNextLayer(hiddenLayers.get(i));
                 hiddenLayers.get(i).setPreviousLayer(hiddenLayers.get(i-1)); 
             }

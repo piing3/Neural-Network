@@ -20,12 +20,12 @@ public class Main {
         RandomNumberGenerator.setSeed(1);
         
         int numberOfInputs = 1;
-        double[] inputs = {10.0};
+        double[] inputs = {1};
         int numberOfOutputs = 1;
-        int[] numberOfHiddenNeurons = { 1 };
+        int[] numberOfHiddenNeurons = {3};
         
         Linear l = new Linear(1.0);
-        IActivationFunction[] hiddenAcFnc = { l }; //new Sigmoid(1.0)
+        IActivationFunction[] hiddenAcFnc = {l}; //new Sigmoid(1.0)
         Linear outputAcFcn = new Linear(1.0);
 
         System.out.println("Creating Neural Network...");
