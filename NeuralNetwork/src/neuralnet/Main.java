@@ -5,7 +5,6 @@ import neuralnet.math.IActivationFunction;
 import neuralnet.math.Linear;
 import neuralnet.math.RandomNumberGenerator;
 import neuralnet.math.Sigmoid;
-import neuralnet.math.Step;
 
 /**
  * Project main
@@ -19,13 +18,13 @@ public class Main {
     public static void main(String[] args) {
         RandomNumberGenerator.setSeed(1);
         
-        int numberOfInputs = 1;
-        double[] inputs = {1};
-        int numberOfOutputs = 1;
-        int[] numberOfHiddenNeurons = {3};
+        int numberOfInputs = 3;
+        double[] inputs = {2.0, 1.5, 1.0};
         
-        Linear l = new Linear(1.0);
-        IActivationFunction[] hiddenAcFnc = {l}; //new Sigmoid(1.0)
+        int[] numberOfHiddenNeurons = {2};
+        IActivationFunction[] hiddenAcFnc = {new Sigmoid(1.0)};
+        
+        int numberOfOutputs = 1;
         Linear outputAcFcn = new Linear(1.0);
 
         System.out.println("Creating Neural Network...");
